@@ -34,7 +34,8 @@ class Cpu(checks.AgentCheck):
             self.log.debug('The process_fs_path not set. Use default path: /proc')
         
         # them delegated_tenant_id
-        self.delegated_tenant_id = self.agent_config["delegated_tenant_id"]
+        self.delegated_tenant_id = self.agent_config.get("delegated_tenant_id")
+        self.log.debug('delegated_tenant_id: %s' % self.agent_config.get("delegaed_tennat_id")
         # them delegated_tenant_id
         
         # psutil.cpu_percent and psutil.cpu_times_percent are called in

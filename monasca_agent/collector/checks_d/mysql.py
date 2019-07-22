@@ -65,7 +65,7 @@ class MySql(checks.AgentCheck):
         self.mysql_version = {}
         self.greater_502 = {}
         # them delegated_tenant_id
-        self.delegated_tenant_id = self.agent_config["delegated_tenant_id"]
+        self.delegated_tenant_id = self.agent_config.get("delegated_tenant_id")
         # them delegated_tenant_id
 
     @staticmethod

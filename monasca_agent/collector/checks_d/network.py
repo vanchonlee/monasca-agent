@@ -27,7 +27,7 @@ class Network(checks.AgentCheck):
     def __init__(self, name, init_config, agent_config):
         super(Network, self).__init__(name, init_config, agent_config)
         # them delegated_tenant_id
-        self.delegated_tenant_id = self.agent_config["delegated_tenant_id"]
+        self.delegated_tenant_id = self.agent_config.get("delegated_tenant_id")
         # them delegated_tenant_id
 
     def check(self, instance):

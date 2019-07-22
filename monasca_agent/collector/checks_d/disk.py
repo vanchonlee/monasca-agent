@@ -35,7 +35,7 @@ class Disk(checks.AgentCheck):
             self.log.debug('The process_fs_path not set. Use default path: /proc')
         
         # them delegated_tenant_id
-        self.delegated_tenant_id = self.agent_config["delegated_tenant_id"]
+        self.delegated_tenant_id = self.agent_config.get("delegated_tenant_id")
         # them delegated_tenant_id
 
     def _log_once_per_day(self, message):
