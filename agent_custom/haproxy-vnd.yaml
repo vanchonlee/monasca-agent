@@ -1,0 +1,3 @@
+init_config:
+  socke_dir: "/var/run/haproxy"
+instances:
