@@ -46,6 +46,10 @@ class ProcessCheck(checks.AgentCheck):
         self._cached_processes = defaultdict(dict)
         self._current_process_list = None
 
+        # them delegated_tenant_id
+        self.delegated_tenant_id = self.agent_config.get("delegated_tenant_id")
+        # them delegated_tenant_id
+
     def find_pids(self, search_string, username, exact_match=True):
         """Create a set of pids of selected processes.
 
@@ -208,10 +212,10 @@ class ProcessCheck(checks.AgentCheck):
 
         self.log.debug('ProcessCheck: process %s analysed' % name)
 
-        self.gauge('process.pid_count', len(pids), dimensions=dimensions)
+        self.gauge('process.pid_count', len(pids), dimensions=dimensions, delegated_tenant=self.delegated_tenant_id)
 
         if instance.get('detailed', False):
             metrics = self.get_process_metrics(pids, name)
             for metric_name, metric_value in metrics.items():
                 if metric_value is not None:
-                    self.gauge(metric_name, metric_value, dimensions=dimensions)
+                    self.gauge(metric_name, metric_value, dimensions=dimensions, delegated_tenant=self.delegated_tenant_id)
