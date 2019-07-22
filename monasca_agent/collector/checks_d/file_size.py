@@ -43,6 +43,10 @@ class FileSize(checks.AgentCheck):
         super(FileSize, self).__init__(name, init_config, agent_config,
                                        instances)
 
+        # them delegated_tenant_id
+        self.delegated_tenant_id = self.agent_config.get("delegated_tenant_id")
+        # them delegated_tenant_id    
+
     def check(self, instance):
         if "directory_name" not in instance:
             raise Exception('FileSize Check: missing "directory_name" in '
@@ -86,7 +90,7 @@ class FileSize(checks.AgentCheck):
                 else:
                     file_bytes = file_stat.st_size
                     self.gauge("file.size_bytes", file_bytes,
-                               dimensions=dimensions)
+                               dimensions=dimensions, delegated_tenant=self.delegated_tenant_id)
                     got_stats = True
                 if got_stats:
                     num_files += 1
