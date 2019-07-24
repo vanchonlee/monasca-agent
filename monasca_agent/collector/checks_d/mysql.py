@@ -93,8 +93,7 @@ class MySql(checks.AgentCheck):
             self.ssl_options['cert'] = ssl_cert
         dimensions = self._set_dimensions({'component': 'mysql', 'service': 'mysql'}, instance)
         # ********************** them tinh nang delegate tenant **********************
-        self.delegated_tenant_id = dimensions.get("delegated_tenant_id")
-        dimensions.pop("delegated_tenant_id")
+        self.delegated_tenant_id = dimensions.pop("delegated_tenant_id")
 
         if not defaults_file:
             if not (mysql_sock or host):

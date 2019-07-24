@@ -58,8 +58,7 @@ class haproxy_vnd(checks.AgentCheck):
 
     def check(self, instance):
         self.dimensions = self._set_dimensions({'service':'haproxy'}, instance)
-        self.delegated_tenant_id = self.dimensions.get("delegated_tenant_id")
-        self.dimensions.pop("delegated_tenant_id")
+        self.delegated_tenant_id = dimensions.pop("delegated_tenant_id")
 
         #self.log.debug('Processing HAProxy data for %s' % url)
         service = services()

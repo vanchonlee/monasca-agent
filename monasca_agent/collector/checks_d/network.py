@@ -36,8 +36,7 @@ class Network(checks.AgentCheck):
         """
         dimensions = self._set_dimensions(None, instance)
         # ********************** them tinh nang delegate tenant **********************
-        self.delegated_tenant_id = dimensions.get("delegated_tenant_id")
-        dimensions.pop("delegated_tenant_id")
+        self.delegated_tenant_id = dimensions.pop("delegated_tenant_id")
 
         excluded_ifaces = instance.get('excluded_interfaces', [])
         if excluded_ifaces:
