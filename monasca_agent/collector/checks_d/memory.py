@@ -39,8 +39,8 @@ class Memory(checks.AgentCheck):
         """
         dimensions = self._set_dimensions(None, instance)
         # ********************** them tinh nang delegate tenant **********************
-        self.delegated_tenant_id = self.dimensions.get("delegated_tenant_id")
-        self.dimensions.pop("delegated_tenant_id")
+        self.delegated_tenant_id = dimensions.get("delegated_tenant_id")
+        dimensions.pop("delegated_tenant_id")
 
         mem_info = psutil.virtual_memory()
         swap_info = psutil.swap_memory()
