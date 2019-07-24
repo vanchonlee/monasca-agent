@@ -94,6 +94,7 @@ class MySql(checks.AgentCheck):
         dimensions = self._set_dimensions({'component': 'mysql', 'service': 'mysql'}, instance)
         # ********************** them tinh nang delegate tenant **********************
         self.delegated_tenant_id = dimensions.pop("delegated_tenant_id")
+        # ********************** them tinh nang delegate tenant **********************
 
         if not defaults_file:
             if not (mysql_sock or host):

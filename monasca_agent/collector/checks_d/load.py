@@ -29,6 +29,9 @@ class Load(checks.AgentCheck):
     def __init__(self, name, init_config, agent_config):
         super(Load, self).__init__(name, init_config, agent_config)
         self.process_fs_path_config = init_config.get('process_fs_path', None)
+        # them delegated_tenant_id
+        self.delegated_tenant_id = ""
+        # them delegated_tenant_id
 
     def check(self, instance):
         """Capture load stats
@@ -36,6 +39,9 @@ class Load(checks.AgentCheck):
         """
 
         dimensions = self._set_dimensions(None, instance)
+        # ********************** them tinh nang delegate tenant **********************
+        self.delegated_tenant_id = dimensions.pop("delegated_tenant_id")
+        # ********************** them tinh nang delegate tenant **********************
 
         if util.Platform.is_linux():
             try:
@@ -76,12 +82,12 @@ class Load(checks.AgentCheck):
 
         self.gauge('load.avg_1_min',
                    round((float(load[0]) / num_cores), 3),
-                   dimensions=dimensions)
+                   dimensions=dimensions, delegated_tenant=self.delegated_tenant_id)
         self.gauge('load.avg_5_min',
                    round((float(load[1]) / num_cores), 3),
-                   dimensions=dimensions)
+                   dimensions=dimensions, delegated_tenant=self.delegated_tenant_id)
         self.gauge('load.avg_15_min',
                    round((float(load[2]) / num_cores), 3),
-                   dimensions=dimensions)
+                   dimensions=dimensions, delegated_tenant=self.delegated_tenant_id)
 
         log.debug("Collected 3 load metrics (normalized by {} cores)".format(num_cores))

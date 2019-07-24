@@ -214,6 +214,7 @@ class ProcessCheck(checks.AgentCheck):
 
         # ********************** them tinh nang delegate tenant **********************
         self.delegated_tenant_id = dimensions.pop("delegated_tenant_id")
+        # ********************** them tinh nang delegate tenant **********************
 
         self.gauge('process.pid_count', len(pids), dimensions=dimensions, delegated_tenant=self.delegated_tenant_id)
 

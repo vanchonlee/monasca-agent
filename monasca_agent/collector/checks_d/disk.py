@@ -51,6 +51,7 @@ class Disk(checks.AgentCheck):
         dimensions = self._set_dimensions(None, instance)
         # ********************** them tinh nang delegate tenant **********************
         self.delegated_tenant_id = dimensions.pop("delegated_tenant_id")
+        # ********************** them tinh nang delegate tenant **********************
         
 
         rollup_dimensions = dimensions.copy()

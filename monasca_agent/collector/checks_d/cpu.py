@@ -49,6 +49,7 @@ class Cpu(checks.AgentCheck):
         dimensions = self._set_dimensions(None, instance)
         # ********************** them tinh nang delegate tenant **********************
         self.delegated_tenant_id = dimensions.pop("delegated_tenant_id")
+        # ********************** them tinh nang delegate tenant **********************
 
         if instance is not None:
             send_rollup_stats = instance.get("send_rollup_stats", False)
