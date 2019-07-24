@@ -27,7 +27,7 @@ class Network(checks.AgentCheck):
     def __init__(self, name, init_config, agent_config):
         super(Network, self).__init__(name, init_config, agent_config)
         # them delegated_tenant_id
-        self.delegated_tenant_id = self.agent_config.get("delegated_tenant_id")
+        self.delegated_tenant_id = ""
         # them delegated_tenant_id
 
     def check(self, instance):
@@ -35,6 +35,9 @@ class Network(checks.AgentCheck):
 
         """
         dimensions = self._set_dimensions(None, instance)
+        # ********************** them tinh nang delegate tenant **********************
+        self.delegated_tenant_id = self.dimensions.get("delegated_tenant_id")
+        self.dimensions.pop("delegated_tenant_id")
 
         excluded_ifaces = instance.get('excluded_interfaces', [])
         if excluded_ifaces:

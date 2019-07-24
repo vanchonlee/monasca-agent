@@ -33,10 +33,7 @@ class Cpu(checks.AgentCheck):
         else:
             self.log.debug('The process_fs_path not set. Use default path: /proc')
         
-        # them delegated_tenant_id
-        self.delegated_tenant_id = self.agent_config.get("delegated_tenant_id")
-        self.log.debug('delegated_tenant_id: %s' % self.agent_config.get("delegaed_tennat_id")
-        # them delegated_tenant_id
+        self.delegated_tenant_id = ""
         
         # psutil.cpu_percent and psutil.cpu_times_percent are called in
         # __init__ because the first time these two functions are called with
@@ -50,6 +47,9 @@ class Cpu(checks.AgentCheck):
         """
         num_of_metrics = 0
         dimensions = self._set_dimensions(None, instance)
+        # ********************** them tinh nang delegate tenant **********************
+        self.delegated_tenant_id = self.dimensions.get("delegated_tenant_id")
+        self.dimensions.pop("delegated_tenant_id")
 
         if instance is not None:
             send_rollup_stats = instance.get("send_rollup_stats", False)

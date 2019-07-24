@@ -47,7 +47,7 @@ class ProcessCheck(checks.AgentCheck):
         self._current_process_list = None
 
         # them delegated_tenant_id
-        self.delegated_tenant_id = self.agent_config.get("delegated_tenant_id")
+        self.delegated_tenant_id = ""
         # them delegated_tenant_id
 
     def find_pids(self, search_string, username, exact_match=True):
@@ -211,6 +211,10 @@ class ProcessCheck(checks.AgentCheck):
         pids = self.find_pids(search_string, username, exact_match=exact_match)
 
         self.log.debug('ProcessCheck: process %s analysed' % name)
+
+        # ********************** them tinh nang delegate tenant **********************
+        self.delegated_tenant_id = self.dimensions.get("delegated_tenant_id")
+        self.dimensions.pop("delegated_tenant_id")
 
         self.gauge('process.pid_count', len(pids), dimensions=dimensions, delegated_tenant=self.delegated_tenant_id)
 

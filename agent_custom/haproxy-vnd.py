@@ -49,15 +49,18 @@ class services():
             self.server_metrics[server.name] = server_metrics_tmp
         
         # print(self.server_metrics)
-
+        
 
 class haproxy_vnd(checks.AgentCheck):
     def __init__(self, name, init_config, agent_config):
         checks.AgentCheck.__init__(self, name, init_config, agent_config)
-        self.delegated_tenant_id = self.agent_config.get("delegated_tenant_id")
+        self.delegated_tenant_id = ""
 
     def check(self, instance):
         self.dimensions = self._set_dimensions({'service':'haproxy'}, instance)
+        self.delegated_tenant_id = self.dimensions.get("delegated_tenant_id")
+        self.dimensions.pop("delegated_tenant_id")
+
         #self.log.debug('Processing HAProxy data for %s' % url)
         service = services()
         service.fetch_data()

@@ -65,7 +65,7 @@ class MySql(checks.AgentCheck):
         self.mysql_version = {}
         self.greater_502 = {}
         # them delegated_tenant_id
-        self.delegated_tenant_id = self.agent_config.get("delegated_tenant_id")
+        self.delegated_tenant_id = ""
         # them delegated_tenant_id
 
     @staticmethod
@@ -92,6 +92,9 @@ class MySql(checks.AgentCheck):
         if ssl_cert is not None:
             self.ssl_options['cert'] = ssl_cert
         dimensions = self._set_dimensions({'component': 'mysql', 'service': 'mysql'}, instance)
+        # ********************** them tinh nang delegate tenant **********************
+        self.delegated_tenant_id = self.dimensions.get("delegated_tenant_id")
+        self.dimensions.pop("delegated_tenant_id")
 
         if not defaults_file:
             if not (mysql_sock or host):
